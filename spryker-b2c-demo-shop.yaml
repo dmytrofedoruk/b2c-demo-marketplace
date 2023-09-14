@@ -1,0 +1,43 @@
+namespace: spryker-b2c-demo-shop
+spryker-b2c-demo-shop:
+  defines: runnable
+  metadata:
+    name: spryker-b2c-demo-shop
+    description: A marketplace demo application.
+    icon: https://emojiapi.dev/api/v1/robot.svg
+  containers:
+    spryker-b2c-demo-shop:
+      build: .
+  services:
+    spryker-b2c-demo-shop-9000-tcp:
+      container: spryker-b2c-demo-shop
+      port: 9000
+      host-port: 9000
+      publish: false
+      protocol: TCP
+  connections:
+    mysql-database:
+      target: mysql-mariadb-database/base
+      service: service
+    rabbitmq-broker:
+      target: rabbitmq/rabbitmq
+      service: rabbitmq-amqp-1
+    redis-key-value-store:
+      target: redis/redis
+      service: redis-svc
+  variables:
+    spryker-product-configurator-host:
+      env: SPRYKER_PRODUCT_CONFIGURATOR_HOST
+      type: string
+      description: Host of the Spryker product configurator
+      value: date-time-configurator-example.demo-spryker.com
+    spryker-product-configurator-port:
+      env: SPRYKER_PRODUCT_CONFIGURATOR_PORT
+      type: string
+      description: Port of the Spryker product configurator
+      value: '''443'''
+    spryker-yves-host-de:
+      env: SPRYKER_YVES_HOST_DE
+      type: string
+      description: Host for the DE locale
+      value: de.example.demo-spryker.com
